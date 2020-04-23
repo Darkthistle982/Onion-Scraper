@@ -3,7 +3,7 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const axios = require("axios");
 const cheerio = require("cheerio");
-const handlebars = require("express-handlebars");
+const Handlebars = require("express-handlebars");
 const db = require("./models");
 
 const PORT = 3000;
