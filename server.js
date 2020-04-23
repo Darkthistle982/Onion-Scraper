@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const axios = require("axios");
 const cheerio = require("cheerio");
-
+const handlebars = require("express-handlebars");
 const db = require("./models");
 
 const PORT = 3000;
