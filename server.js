@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use(express.static("views"));
 
-mongoose.connect("mongodb://localhost/onionScraper", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/onionScraper", { useNewUrlParser: true } );
 
 //Routes//
 
