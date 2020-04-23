@@ -1,0 +1,5 @@
+.jumbotron {
+    background-image: url(../images/jumbotronBackground.jpg);
+    background-size: auto;
+    opacity: 0.5;
+}
