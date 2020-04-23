@@ -18,7 +18,7 @@ let exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-app.use(express.static("/views"));
+app.use(express.static("/public"));
 
 mongoose.connect("mongodb://localhost/onionScraper", { useNewUrlParser: true } );
 
@@ -35,9 +35,9 @@ app.get("/scrape", function(request, response) {
 
         $("article").each(function(i, element) {
             let scrapedArticle = {};
-            scrapedArticle.title = $(this).children("h4").text();
-            scrapedArticle.summary = $(this).children("p").text();
-            scrapedArticle.link = $(this).children("a").attr("href");
+            scrapedArticle.title = $(element).find("h4").first().text();
+            scrapedArticle.summary = $(element).find("p").first().text();
+            scrapedArticle.link = $(element).find('a:nth-child(1)').attr("href");
             
             db.Article.create(scrapedArticle)
             .then(function(dbArticle) {
