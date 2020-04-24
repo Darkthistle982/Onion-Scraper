@@ -46,7 +46,7 @@ app.get("/scrape", function (request, response) {
         let scrapedArticle = {};
         scrapedArticle.title = $(element).find("h4").first().text();
         scrapedArticle.summary = $(element).find("p").first().text();
-        scrapedArticle.link = $(element).find("a:nth-child(1)").attr("href");
+        scrapedArticle.link = $(element).find("a:nth-child(2)").attr("href");
 
         db.Article.create(scrapedArticle)
           .then(function (dbArticle) {
