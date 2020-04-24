@@ -1,4 +1,17 @@
-console.log("is anyone there?");
+$("#scrape").on("click", function (request, response) {
+  console.log("clicked");
+  $.ajax({
+    method: "GET",
+    url: "/scrape",
+  })
+    .then(function (result) {
+      response.send("data scraped");
+      response.redirect("/");
+    })
+    .catch(function (error) {
+      throw error;
+    });
+});
 
 // $(document).ready(function(){
 //     console.log("Hello there");

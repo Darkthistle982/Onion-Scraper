@@ -2,6 +2,7 @@ const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const axios = require("axios");
+const bodyParser = require("body-parser");
 const cheerio = require("cheerio");
 const Handlebars = require("express-handlebars");
 const db = require("./models");
@@ -11,7 +12,7 @@ const PORT = 3000;
 const app = express();
 
 app.use(logger("dev"));
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 let exphbs = require("express-handlebars");
@@ -24,14 +25,14 @@ mongoose.connect("mongodb://localhost/onionScraper", { useNewUrlParser: true });
 
 //Routes//
 app.get("/", function (request, response) {
-    db.Article.find({})
-    .then(function(result) {
-        console.log(result);
-        let articleObj = { article: result}
-        return response.render("index", articleObj);
+  db.Article.find({})
+    .then(function (result) {
+      console.log(result);
+      let articleObj = { article: result };
+      return response.render("index", articleObj);
     })
-    .catch(function(error){
-        response.status(418).send(error.message);
+    .catch(function (error) {
+      response.status(418).send(error.message);
     });
 });
 

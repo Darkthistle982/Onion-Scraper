@@ -39,3 +39,7 @@ nav {
     font-family: 'Playfair Display', serif !important;
     font-weight: bold;
 }
+
+body {
+    background-image: url(../images/black_paper.png);
+}
