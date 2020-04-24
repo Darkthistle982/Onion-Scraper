@@ -24,6 +24,7 @@ app.use(express.static(__dirname + "/public"));
 mongoose.connect("mongodb://localhost/onionScraper", { useNewUrlParser: true });
 
 //Routes//
+//main route to render the main page.//
 app.get("/", function (request, response) {
   db.Article.find({}).lean()
     .then(function (result) {
@@ -36,7 +37,25 @@ app.get("/", function (request, response) {
     });
 });
 
-//route to run a scrape of current articles from theonion.com and place them in the database.
+//route to save/update a comment to an article//
+app.post("/articles/:id", function(request, response) {
+    db.Comment.create(request.body)
+    .then(function(createdComment) {
+        return db.Article.findOne(
+            { _id: request.params.id },
+            { $set: { comment: createdComment._id }},
+            { new: true }
+        )
+    })
+    .then(function(modifiedArticle) {
+        response.json(modifiedArticle);
+    })
+    .catch(function(error) {
+        response.status(402).send(error.message)
+    })
+});
+
+//route to run a scrape of current articles from theonion.com and place them in the database.//
 app.get("/scrape", function (request, response) {
   axios.get("https://www.theonion.com/").then(function (response) {
     let $ = cheerio.load(response.data);
@@ -57,8 +76,8 @@ app.get("/scrape", function (request, response) {
           });
       });
     });
+    response.send("Scrape Successful");
   });
-  response.send("Scrape Successful");
 });
 
 //Listener to Start the Server//
