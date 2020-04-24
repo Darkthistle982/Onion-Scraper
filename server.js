@@ -24,7 +24,15 @@ mongoose.connect("mongodb://localhost/onionScraper", { useNewUrlParser: true });
 
 //Routes//
 app.get("/", function (request, response) {
-  response.render("index");
+    db.Article.find({})
+    .then(function(result) {
+        console.log(result);
+        let articleObj = { article: result}
+        return response.render("index", articleObj);
+    })
+    .catch(function(error){
+        response.status(418).send(error.message);
+    });
 });
 
 app.get("/scrape", function (request, response) {

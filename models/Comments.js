@@ -3,7 +3,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 let CommentSchema = new Schema({
-    body: String
+  body: {
+    type: String,
+  },
+  article: {
+      type: Schema.Types.ObjectId,
+      ref: "Article"
+  }
 });
 
 let Comment = mongoose.model("Comment", CommentSchema);
