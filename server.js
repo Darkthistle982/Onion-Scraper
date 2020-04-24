@@ -20,40 +20,38 @@ app.set("view engine", "handlebars");
 
 app.use(express.static(__dirname + "/public"));
 
-mongoose.connect("mongodb://localhost/onionScraper", { useNewUrlParser: true } );
+mongoose.connect("mongodb://localhost/onionScraper", { useNewUrlParser: true });
 
 //Routes//
-app.get("/", function(request, response) {
-    response.render("index");
+app.get("/", function (request, response) {
+  response.render("index");
 });
 
+app.get("/scrape", function (request, response) {
+  axios.get("https://www.theonion.com/").then(function (response) {
+    let $ = cheerio.load(response.data);
 
-app.get("/scrape", function(request, response) {
-    axios.get("https://www.theonion.com/")
-    .then(function(response) {
-        let $ = cheerio.load(response.data);
+    db.Article.remove({}).then(function () {
+      $("article").each(function (i, element) {
+        let scrapedArticle = {};
+        scrapedArticle.title = $(element).find("h4").first().text();
+        scrapedArticle.summary = $(element).find("p").first().text();
+        scrapedArticle.link = $(element).find("a:nth-child(1)").attr("href");
 
-        $("article").each(function(i, element) {
-            let scrapedArticle = {};
-            scrapedArticle.title = $(element).find("h4").first().text();
-            scrapedArticle.summary = $(element).find("p").first().text();
-            scrapedArticle.link = $(element).find('a:nth-child(1)').attr("href");
-            
-            db.Article.create(scrapedArticle)
-            .then(function(dbArticle) {
-                console.log(dbArticle);
-            })
-            .catch(function(error) {
-               console.log(error);
-            })
-        })
-    })
-    response.send("Scrape Completed")
-})
-
-
+        db.Article.create(scrapedArticle)
+          .then(function (dbArticle) {
+            console.log(dbArticle);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      });
+    });
+  });
+  response.redirect("/");
+});
 
 //Listener to Start the Server//
-app.listen(PORT, function() {
-    console.log("app running on port " + PORT);
+app.listen(PORT, function () {
+  console.log("app running on port " + PORT);
 });
