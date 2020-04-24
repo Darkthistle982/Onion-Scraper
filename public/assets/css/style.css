@@ -42,4 +42,10 @@ nav {
 
 body {
     background-image: url(../images/black_paper.png);
+    font-family: 'Times New Roman', Times, serif;
+}
+
+a {
+    text-decoration: none !important;
+
 }

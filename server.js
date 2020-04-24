@@ -25,7 +25,7 @@ mongoose.connect("mongodb://localhost/onionScraper", { useNewUrlParser: true });
 
 //Routes//
 app.get("/", function (request, response) {
-  db.Article.find({})
+  db.Article.find({}).lean()
     .then(function (result) {
       console.log(result);
       let articleObj = { article: result };
@@ -36,6 +36,7 @@ app.get("/", function (request, response) {
     });
 });
 
+//route to run a scrape of current articles from theonion.com and place them in the database.
 app.get("/scrape", function (request, response) {
   axios.get("https://www.theonion.com/").then(function (response) {
     let $ = cheerio.load(response.data);
@@ -57,7 +58,7 @@ app.get("/scrape", function (request, response) {
       });
     });
   });
-  response.redirect("/");
+  response.send("Scrape Successful");
 });
 
 //Listener to Start the Server//
