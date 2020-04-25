@@ -21,14 +21,18 @@ app.set("view engine", "handlebars");
 
 app.use(express.static(__dirname + "/public"));
 
-mongoose.connect("mongodb://localhost/onionScraper", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/onionScraper", [
+  { useNewUrlParser: true },
+  { useUnifiedTopology: true },
+]);
 
 //Routes//
 //main route to render the main page.//
 app.get("/", function (request, response) {
-  db.Article.find({}).lean()
+  db.Article.find({})
+    .lean()
     .then(function (result) {
-      console.log(result);
+      // console.log(result);
       let articleObj = { article: result };
       return response.render("index", articleObj);
     })
@@ -38,45 +42,64 @@ app.get("/", function (request, response) {
 });
 
 //route to save/update a comment to an article//
-app.post("/articles/:id", function(request, response) {
-    db.Comment.create(request.body)
-    .then(function(createdComment) {
-        return db.Article.findOne(
-            { _id: request.params.id },
-            { $set: { comment: createdComment._id }},
-            { new: true }
-        )
+app.post("/articles/:id", function (request, response) {
+  db.Comment.create(request.body)
+    .then(function (createdComment) {
+      return db.Article.findOne(
+        { _id: request.params.id },
+        { $set: { comment: createdComment._id } },
+        { new: true }
+      );
     })
-    .then(function(modifiedArticle) {
-        response.json(modifiedArticle);
+    .then(function (modifiedArticle) {
+      response.json(modifiedArticle);
     })
-    .catch(function(error) {
-        response.status(402).send(error.message)
+    .catch(function (error) {
+      response.status(404).send(error.message);
+    });
+});
+
+//route to clear the current articles from the db
+app.delete("/clear", function (request, response) {
+  db.Article.deleteMany({})
+    .then(function (result) {
+      response.status(200);
     })
+    .catch(function (error) {
+      throw error;
+    });
 });
 
 //route to run a scrape of current articles from theonion.com and place them in the database.//
 app.get("/scrape", function (request, response) {
-  axios.get("https://www.theonion.com/").then(function (response) {
-    let $ = cheerio.load(response.data);
+  axios.get("https://www.theonion.com/").then(function (responseData) {
+    let $ = cheerio.load(responseData.data);
 
-    db.Article.remove({}).then(function () {
+    db.Article.deleteMany({}).then(function () {
       $("article").each(function (i, element) {
         let scrapedArticle = {};
         scrapedArticle.title = $(element).find("h4").first().text();
         scrapedArticle.summary = $(element).find("p").first().text();
         scrapedArticle.link = $(element).find("a:nth-child(2)").attr("href");
-
+        if (typeof scrapedArticle.link === "undefined") {
+          return;
+        }
         db.Article.create(scrapedArticle)
           .then(function (dbArticle) {
-            console.log(dbArticle);
+            if (!response.headersSent) {
+              response.json(dbArticle);
+            }
+            // console.log(dbArticle);
           })
           .catch(function (error) {
+            if (!response.headersSent) {
+              response.status(404);
+            }
             console.log(error);
           });
       });
     });
-    response.send("Scrape Successful");
+    console.log("Scrape Successful");
   });
 });
 

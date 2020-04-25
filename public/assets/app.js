@@ -1,32 +1,31 @@
 $(document).ready(function() {
-    $(document).on("click", ".scrape-new", function(request, response) {
-        console.log
+    $(document).on("click", "#scrape", function(request, response) {
+        // console.log("Scrape Started")
         $.ajax({
             method: "GET",
-            url: "/scrape"
+            url: "/scrape/"
         })
         .then(function(result) {
-            response.send("data scraped");
-            response.redirect("/");
+            // console.log("Scrape Completed, Redirecting.")
+            window.location.reload();
         })
         .catch(function(error) {
             throw error;
         })
     });
+
+    $(document).on("click", "#clear", function(request, response) {
+        $.ajax({
+            method: "DELETE",
+            url: "/clear/"
+        })
+        .then(function(result) {
+            window.location.reload();
+        })
+        .catch(function(error) {
+            throw error;
+        })
+    })
+
+
 });
-
-// $(document).ready(function(){
-//     console.log("Hello there");
-//     $.ajax({
-//         method: "GET",
-//         url: "/scrape/"
-//     })
-//     .then(function(data){
-//         console.log("Articles Scraped and inserted to DB");
-//         data.send("Data Scraped")
-
-//     })
-//     .catch(function(error) {
-//      throw error;
-//     });
-// });
