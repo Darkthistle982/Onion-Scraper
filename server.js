@@ -21,10 +21,9 @@ app.set("view engine", "handlebars");
 
 app.use(express.static(__dirname + "/public"));
 
-mongoose.connect("mongodb://localhost/onionScraper", [
-  { useNewUrlParser: true },
-  { useUnifiedTopology: true },
-]);
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/onionScraper";
+
+mongoose.connect(MONGODB_URI)
 
 //Routes//
 //main route to render the main page.//
