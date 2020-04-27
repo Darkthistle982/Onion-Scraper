@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const cheerio = require("cheerio");
 const Handlebars = require("express-handlebars");
 const db = require("./models");
+const bootbox = require("bootbox");
 
 const PORT = 3000;
 
@@ -14,7 +15,6 @@ const app = express();
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-
 let exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
@@ -34,6 +34,7 @@ mongoose.connect(MONGODB_URI, {
 app.get("/", function (request, response) {
   db.Article.find({})
     .lean()
+    .populate('Comments')
     .then(function (result) {
       // console.log(result);
       let articleObj = { article: result };
@@ -45,7 +46,7 @@ app.get("/", function (request, response) {
 });
 
 //route to save/update a comment to an article//
-app.post("/articles/:id", function (request, response) {
+app.put("/articles/:id", function (request, response) {
   db.Comment.create(request.body)
     .then(function (createdComment) {
       return db.Article.findOne(
@@ -61,7 +62,7 @@ app.post("/articles/:id", function (request, response) {
       response.status(404).send(error.message);
     });
 });
-
+//
 //route to clear the current articles from the db
 app.post("/clear", function (request, response) {
   db.Article.deleteMany({}).lean()

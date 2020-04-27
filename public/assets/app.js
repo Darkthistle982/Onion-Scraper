@@ -28,6 +28,24 @@ $(document).ready(function () {
       });
   });
 
+ $(document).on("click", "#saveComment", function() {
+     let thisID = $(this).attr("data-id");
+     $.ajax({
+         method: "POST",
+         url: "/articles/" + thisID,
+         data: {
+             body: $("#commentsForm").val(),
+         }
+     })
+     .then(function (result) {
+         console.log(result);
+         $("#commentsForm").empty();
+     })
+     .catch(function (error) {
+         throw error;
+     });
+ });
+
   $(window).scroll(function() {
     var height = $(window).scrollTop();
     if (height > 100) {

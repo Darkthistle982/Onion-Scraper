@@ -44,33 +44,10 @@
         </div>
         {{/each}}
     </div>
-    <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="commentModalLabel">Enter Commnet</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="commentsForm">Comment</label>
-                            <textarea class="form-control" id="commentsForm" rows="3"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-secondary" id="saveComment" data-dismiss="modal">Save
-                        Comment</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
-
 <a id="back2Top" title="Back to top" href="#">&#10148;</a>
+
+{{#each articles}}
+    {{> modal }}
+{{/each}}
