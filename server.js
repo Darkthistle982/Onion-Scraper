@@ -21,9 +21,13 @@ app.set("view engine", "handlebars");
 
 app.use(express.static(__dirname + "/public"));
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/onionScraper";
+const MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://localhost/onionScraper";
 
-mongoose.connect(MONGODB_URI)
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 //Routes//
 //main route to render the main page.//
@@ -33,7 +37,7 @@ app.get("/", function (request, response) {
     .then(function (result) {
       // console.log(result);
       let articleObj = { article: result };
-      return response.render("index", articleObj);
+      response.render("index", articleObj);
     })
     .catch(function (error) {
       response.status(418).send(error.message);
@@ -59,10 +63,10 @@ app.post("/articles/:id", function (request, response) {
 });
 
 //route to clear the current articles from the db
-app.delete("/clear", function (request, response) {
-  db.Article.deleteMany({})
+app.post("/clear", function (request, response) {
+  db.Article.deleteMany({}).lean()
     .then(function (result) {
-      response.status(200);
+      response.json(result);
     })
     .catch(function (error) {
       throw error;
