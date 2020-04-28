@@ -33,40 +33,39 @@
                 <div class="card-title">
                     <h3>
                         <a href={{link}} target="_blank" class="text-white">{{title}}</a>
-                        <button class="btn btn-success comment float-right mt-1" id={{_id}} type="button"
-                            data-toggle="modal" data-target="#commentModal">Comment</button>
-                        <div class="modal fade" id="commentModal" tabindex="-1" role="dialog"
-                            aria-labelledby="commentModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="commentModalLabel">Enter Commnet</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="commentsForm">Comment</label>
-                                                <textarea class="form-control" id="commentsForm{{_id}}"
-                                                    rows="3"></textarea>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-secondary" id="saveComment"
-                                            data-dismiss="modal" data-id={{_id}}>Save
-                                            Comment</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <button class="btn btn-success float-right mt-1 ml-1" id={{_id}} type="button" data-toggle="modal"
+                            data-target="#commentModal">Comment</button>
+                        <button class="btn btn-dark save float-right mt-1 mr-1" data-id="{{_id}}">Save</button>
                     </h3>
                 </div>
                 <div class="card-text">
                     <p class="text-white">{{summary}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="commentModalLabel">Enter Comment</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="commentsForm">Comment</label>
+                                <textarea class="form-control" id="commentsForm{{_id}}" rows="3"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" id="saveComment" data-dismiss="modal"
+                            data-id={{_id}}>Save
+                            Comment</button>
+                    </div>
                 </div>
             </div>
         </div>

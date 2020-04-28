@@ -45,12 +45,12 @@ app.get("/", function (request, response) {
 });
 
 //route to save/update a comment to an article//
-app.put("/articles/:id", function (request, response) {
+app.post("/articles/:id", function (request, response) {
   db.Comment.create(request.body)
     .then(function (createdComment) {
-      return db.Article.findOne(
+      return db.Article.findOneAndUpdate(
         { _id: request.params.id },
-        { $set: { comment: createdComment._id } },
+        { "comments": createdComment._id },
         { new: true }
       );
     })

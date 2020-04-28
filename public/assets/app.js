@@ -1,16 +1,11 @@
 $(document).ready(function () {
-//call to activate modal//
-$("#commentModal").modal();
-
 //event to tie and run the scrape route upon click of the scrape new articles button//
   $(document).on("click", "#scrape", function (request, response) {
-    // console.log("Scrape Started")
     $.ajax({
       method: "GET",
       url: "/scrape/",
     })
       .then(function (result) {
-        // console.log("Scrape Completed, Redirecting.")
         window.location.reload();
       })
       .catch(function (error) {
@@ -34,18 +29,19 @@ $("#commentModal").modal();
   });
 
 //event to handle the save comment on the modal//
- $(document).on("click", "#saveComment", function() {
+ $(document).on("click", "#saveComment", function(request, response) {
      let thisID = $(this).attr("data-id");
+     console.log(thisID);
      $.ajax({
          method: "POST",
          url: "/articles/" + thisID,
          data: {
-             body: $("#commentsForm").val(),
+             body: $("#commentsForm" + thisID).val(),
          }
      })
      .then(function (result) {
          console.log(result);
-         $("#commentsForm").empty();
+         $("#commentsForm" + thisID).val("");
      })
      .catch(function (error) {
          throw error;
