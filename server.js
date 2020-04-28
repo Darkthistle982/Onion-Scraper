@@ -107,6 +107,19 @@ app.get("/scrape", function (request, response) {
   });
 });
 
+
+
+//route to save an article//
+app.post("/saved:id", function(request, response) {
+  db.Article.findOneAndUpdate({"_id": request.params.id}, {"$set": {"saved": true}})
+  .then(function(result) {
+    response.json(result);
+  })
+  .catch(function(error) {
+    response.status(404)
+  });
+});
+
 //Listener to Start the Server//
 app.listen(PORT, function () {
   console.log("app running on port " + PORT);
