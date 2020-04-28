@@ -6,8 +6,7 @@ const bodyParser = require("body-parser");
 const cheerio = require("cheerio");
 const Handlebars = require("express-handlebars");
 const db = require("./models");
-const bootbox = require("bootbox");
-
+const path = require("path");
 const PORT = 3000;
 
 const app = express();
@@ -34,7 +33,7 @@ mongoose.connect(MONGODB_URI, {
 app.get("/", function (request, response) {
   db.Article.find({})
     .lean()
-    .populate('Comments')
+    .populate("Comments")
     .then(function (result) {
       // console.log(result);
       let articleObj = { article: result };
@@ -65,7 +64,8 @@ app.put("/articles/:id", function (request, response) {
 //
 //route to clear the current articles from the db
 app.post("/clear", function (request, response) {
-  db.Article.deleteMany({}).lean()
+  db.Article.deleteMany({})
+    .lean()
     .then(function (result) {
       response.json(result);
     })

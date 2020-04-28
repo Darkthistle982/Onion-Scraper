@@ -1,4 +1,8 @@
 $(document).ready(function () {
+//call to activate modal//
+$("#commentModal").modal();
+
+//event to tie and run the scrape route upon click of the scrape new articles button//
   $(document).on("click", "#scrape", function (request, response) {
     // console.log("Scrape Started")
     $.ajax({
@@ -14,6 +18,7 @@ $(document).ready(function () {
       });
   });
 
+// event to handle the button click and route call for the clear button//
   $(document).on("click", "#clear", function (request, response) {
     $.ajax({
       method: "POST",
@@ -28,6 +33,7 @@ $(document).ready(function () {
       });
   });
 
+//event to handle the save comment on the modal//
  $(document).on("click", "#saveComment", function() {
      let thisID = $(this).attr("data-id");
      $.ajax({
@@ -46,6 +52,7 @@ $(document).ready(function () {
      });
  });
 
+//logic and event to activate the scroll to top button//
   $(window).scroll(function() {
     var height = $(window).scrollTop();
     if (height > 100) {
