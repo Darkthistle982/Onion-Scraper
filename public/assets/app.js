@@ -68,6 +68,7 @@ $(document).ready(function () {
   //on click and logic for the save button//
   $(".save").on("click", function () {
     let thisID = $(this).attr("data-id");
+    console.log(thisID);
     $.ajax({
       method: "POST",
       url: "/saved/" + thisID,

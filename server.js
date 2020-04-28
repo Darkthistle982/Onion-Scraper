@@ -50,7 +50,7 @@ app.post("/articles/:id", function (request, response) {
     .then(function (createdComment) {
       return db.Article.findOneAndUpdate(
         { _id: request.params.id },
-        { "comments": createdComment._id },
+        { comments: createdComment._id },
         { new: true }
       );
     })
@@ -107,17 +107,31 @@ app.get("/scrape", function (request, response) {
   });
 });
 
-
+//route to display the saved articles//
+app.get("/saved", function (request, response) {
+  db.Article.find({ saved: true })
+    .populate("comments")
+    .then(function (result) {
+      let articleObject = { article: result };
+      response.render("saved", articleObject);
+    })
+    .catch(function (error) {
+      response.status(418).send(error.message);
+    });
+});
 
 //route to save an article//
-app.post("/saved:id", function(request, response) {
-  db.Article.findOneAndUpdate({"_id": request.params.id}, {"$set": {"saved": true}})
-  .then(function(result) {
-    response.json(result);
-  })
-  .catch(function(error) {
-    response.status(404)
-  });
+app.post("/saved:id", function (request, response) {
+  db.Article.findOneAndUpdate(
+    { _id: request.params.id },
+    { $set: { saved: true } }
+  )
+    .then(function (result) {
+      response.json(result);
+    })
+    .catch(function (error) {
+      response.json(error);
+    });
 });
 
 //Listener to Start the Server//

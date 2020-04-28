@@ -6,12 +6,18 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/saved">Saved Articles</a>
+            </li>
             <li class="nav-item">
                 <button class="btn btn-light mr-1 font-weight-bold" id="scrape">Scrape New Articles</button>
             </li>
-            <li class="nav-item">
+            {{!-- <li class="nav-item">
                 <a class="btn btn-danger ml-1 font-weight-bold" id="clear">Clear Articles</a>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </nav>
@@ -35,7 +41,7 @@
                         <a href={{link}} target="_blank" class="text-white">{{title}}</a>
                         <button class="btn btn-success float-right mt-1 ml-1" id={{_id}} type="button" data-toggle="modal"
                             data-target="#commentModal">Comment</button>
-                        <button class="btn btn-dark save float-right mt-1 mr-1" data-id="{{_id}}">Save</button>
+                        <button class="btn btn-dark save float-right mt-1 mr-1" data-id="{{_id}}">Save Article</button>
                     </h3>
                 </div>
                 <div class="card-text">
