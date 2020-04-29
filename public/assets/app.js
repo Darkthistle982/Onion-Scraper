@@ -14,24 +14,23 @@ $(document).ready(function () {
   });
 
   // event to handle the button click and route call for the clear button//
-  $(document).on("click", "#clear", function (request, response) {
-    $.ajax({
-      method: "POST",
-      url: "/clear/",
-    })
-      .then(function (result) {
-        console.log(result);
-        window.location = "/";
-      })
-      .catch(function (error) {
-        throw error;
-      });
-  });
+//   $(document).on("click", "#clear", function (request, response) {
+//     $.ajax({
+//       method: "POST",
+//       url: "/clear/",
+//     })
+//       .then(function (result) {
+//         console.log(result);
+//         window.location = "/";
+//       })
+//       .catch(function (error) {
+//         throw error;
+//       });
+//   });
 
   //event to handle the save comment on the modal//
   $(document).on("click", "#saveComment", function (request, response) {
     let thisID = $(this).attr("data-id");
-    console.log(thisID);
     $.ajax({
       method: "POST",
       url: "/articles/" + thisID,
@@ -40,7 +39,6 @@ $(document).ready(function () {
       },
     })
       .then(function (result) {
-        console.log(result);
         $("#commentsForm" + thisID).val("");
       })
       .catch(function (error) {
@@ -68,7 +66,6 @@ $(document).ready(function () {
   //on click and logic for the save button//
   $(".save").on("click", function () {
     let thisID = $(this).attr("data-id");
-    console.log(thisID);
     $.ajax({
       method: "POST",
       url: "/saved/" + thisID,
@@ -77,7 +74,7 @@ $(document).ready(function () {
         window.location = "/";
       })
       .catch(function (error) {
-        throw error;
+        console.log(error.message);
       });
   });
 });

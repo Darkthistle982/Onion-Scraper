@@ -35,7 +35,6 @@ app.get("/", function (request, response) {
     .lean()
     .populate("Comments")
     .then(function (result) {
-      // console.log(result);
       let articleObj = { article: result };
       response.render("index", articleObj);
     })
@@ -93,7 +92,6 @@ app.get("/scrape", function (request, response) {
             if (!response.headersSent) {
               response.json(dbArticle);
             }
-            // console.log(dbArticle);
           })
           .catch(function (error) {
             if (!response.headersSent) {
@@ -110,8 +108,10 @@ app.get("/scrape", function (request, response) {
 //route to display the saved articles//
 app.get("/saved", function (request, response) {
   db.Article.find({ saved: true })
+    .lean()
     .populate("comments")
     .then(function (result) {
+      console.log(result);
       let articleObject = { article: result };
       response.render("saved", articleObject);
     })
@@ -121,7 +121,7 @@ app.get("/saved", function (request, response) {
 });
 
 //route to save an article//
-app.post("/saved:id", function (request, response) {
+app.post("/saved/:id", function (request, response) {
   db.Article.findOneAndUpdate(
     { _id: request.params.id },
     { $set: { saved: true } }
