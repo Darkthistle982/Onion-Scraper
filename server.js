@@ -6,7 +6,6 @@ const bodyParser = require("body-parser");
 const cheerio = require("cheerio");
 const Handlebars = require("express-handlebars");
 const db = require("./models");
-const path = require("path");
 const PORT = 3000;
 
 const app = express();
