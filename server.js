@@ -7,7 +7,7 @@ const cheerio = require("cheerio");
 const Handlebars = require("express-handlebars");
 const dotenv = require("dotenv").config();
 const db = require("./models");
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
