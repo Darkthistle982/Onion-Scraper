@@ -37,7 +37,7 @@ app.get("/", function (request, response) {
       response.render("index", articleObj);
     })
     .catch(function (error) {
-      response.status(418).send(error.message);
+      response.status(404).send(error.message);
     });
 });
 
