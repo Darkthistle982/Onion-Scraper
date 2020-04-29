@@ -5,6 +5,7 @@ const axios = require("axios");
 const bodyParser = require("body-parser");
 const cheerio = require("cheerio");
 const Handlebars = require("express-handlebars");
+const dotenv = require("dotenv").config();
 const db = require("./models");
 const PORT = 3000;
 
