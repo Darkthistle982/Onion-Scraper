@@ -32,7 +32,6 @@ mongoose.connect(MONGODB_URI, {
 app.get("/", function (request, response) {
   db.Article.find({})
     .lean()
-    .populate("Comments")
     .then(function (result) {
       let articleObj = { article: result };
       response.render("index", articleObj);
