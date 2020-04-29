@@ -30,9 +30,6 @@ mongoose.connect(MONGODB_URI, {
 });
 
 //Routes//
-app.get("*", function (request, response) {
-  response.end("hi");
-})
 
 //main route to render the main page.//
 app.get("/", function (request, response) {
