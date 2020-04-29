@@ -5,7 +5,6 @@ const axios = require("axios");
 const bodyParser = require("body-parser");
 const cheerio = require("cheerio");
 const Handlebars = require("express-handlebars");
-const dotenv = require("dotenv").config();
 const db = require("./models");
 const PORT = process.env.PORT || 3000;
 
@@ -21,8 +20,7 @@ app.set("view engine", "handlebars");
 app.use(express.static(__dirname + "/public"));
 
 let MONGODB_URI =
-  process.env.MONGODB_URI; 
-  // || "mongodb://localhost/onionScraper";
+  process.env.MONGODB_URI || "mongodb://localhost/onionScraper";
 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
