@@ -45,4 +45,4 @@ I also struggled greatly with my rendering, as my data continuously returned inv
 
 I was not able to find a way to scrape articles, and only pull down new ones without duplicates, so I ended up including a deletemany first, to wipe the articles from the db, then scrape. This isn't ideal but it was the only way I could get the scrape working without a massive amount of duplicate articles appearing. 
 
-### Link to the Live project: 
+### Link to the Live project: https://pacific-shelf-26881.herokuapp.com/
