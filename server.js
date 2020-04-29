@@ -60,7 +60,7 @@ app.post("/articles/:id", function (request, response) {
       response.status(404).send(error.message);
     });
 });
-//
+
 //route to clear the current articles from the db
 app.post("/clear", function (request, response) {
   db.Article.deleteMany({})
@@ -111,12 +111,38 @@ app.get("/saved", function (request, response) {
     .lean()
     .populate("comments")
     .then(function (result) {
-      console.log(result);
       let articleObject = { article: result };
       response.render("saved", articleObject);
     })
     .catch(function (error) {
       response.status(418).send(error.message);
+    });
+});
+
+//route to delete a specific article from "saved Articles" and put them back on the main page//
+app.post("/delete/:id", function (request, response) {
+  db.Article.findOneAndUpdate(
+    { _id: request.params.id },
+    { $set: { saved: false } }
+  )
+    .lean()
+    .then(function (result) {
+      response.json(result);
+    })
+    .catch(function (error) {
+      response.status(404).send(error.message);
+    });
+});
+
+//route to delete a note from a saved article//
+app.post("/deleteNote/:id", function (request, response) {
+  db.Comment.deleteOne({ _id: request.params.id })
+  .lean()  
+  .then(function (result) {
+      response.json(result);
+    })
+    .catch(function (error) {
+      response.status(402).send(error.message);
     });
 });
 

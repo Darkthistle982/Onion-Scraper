@@ -15,9 +15,6 @@
             <li class="nav-item">
                 <button class="btn btn-light mr-1 font-weight-bold" id="scrape">Scrape New Articles</button>
             </li>
-            {{!-- <li class="nav-item">
-                <a class="btn btn-danger ml-1 font-weight-bold" id="clear">Clear Articles</a>
-            </li> --}}
         </ul>
     </div>
 </nav>
@@ -39,8 +36,6 @@
                 <div class="card-title">
                     <h3>
                         <a href={{link}} target="_blank" class="text-white">{{title}}</a>
-                        <button class="btn btn-success float-right mt-1 ml-1" id={{_id}} type="button" data-toggle="modal"
-                            data-target="#commentModal">Comment</button>
                         <button class="btn btn-dark save float-right mt-1 mr-1" data-id="{{_id}}">Save Article</button>
                     </h3>
                 </div>

@@ -13,21 +13,21 @@ $(document).ready(function () {
       });
   });
 
-  // event to handle the button click and route call for the clear button//
-//   $(document).on("click", "#clear", function (request, response) {
-//     $.ajax({
-//       method: "POST",
-//       url: "/clear/",
-//     })
-//       .then(function (result) {
-//         console.log(result);
-//         window.location = "/";
-//       })
-//       .catch(function (error) {
-//         throw error;
-//       });
-//   });
-
+  //event to handle click and call to route to delete a note//
+  $(".deleteNote").on("click", function() {
+      let thisID = $(this).attr("data-note-id");
+      $.ajax({
+          method: "POST",
+          url: "/deleteNote/" + thisID
+      })
+      .then(function(data) {
+          console.log(data);
+          window.location.reload();
+      })
+      .catch(function(error) {
+          throw error;
+      })
+  })
   //event to handle the save comment on the modal//
   $(document).on("click", "#saveComment", function (request, response) {
     let thisID = $(this).attr("data-id");
@@ -40,6 +40,7 @@ $(document).ready(function () {
     })
       .then(function (result) {
         $("#commentsForm" + thisID).val("");
+        window.location.reload();
       })
       .catch(function (error) {
         throw error;
@@ -61,6 +62,21 @@ $(document).ready(function () {
       $("html, body").animate({ scrollTop: 0 }, "slow");
       return false;
     });
+  });
+
+  //click function to delete from saved//
+  $(".delete").on("click", function () {
+    let thisID = $(this).attr("data-id");
+    $.ajax({
+      method: "POST",
+      url: "/delete/" + thisID,
+    })
+      .then(function (data) {
+        window.location.reload();
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
   });
 
   //on click and logic for the save button//

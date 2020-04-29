@@ -39,14 +39,32 @@
                 <div class="card-title">
                     <h3>
                         <a href={{link}} target="_blank" class="text-white">{{title}}</a>
-                        <button class="btn btn-success float-right mt-1 ml-1" id={{_id}} type="button" data-toggle="modal"
-                            data-target="#commentModal">Comment</button>
-                        <button class="btn btn-dark save float-right mt-1 mr-1" data-id="{{_id}}">Save Article</button>
+                        <br>
+                        <button class="btn btn-success float-right mt-1 ml-1" id={{_id}} type="button"
+                            data-toggle="modal" data-target="#commentModal">Comment</button>
+                        <button class="btn btn-dark save float-right mt-1 ml-1 mr-1" data-id="{{_id}}">Save
+                            Article</button>
+                        <button class="btn btn-danger delete float-right mt-1 ml-1" data-id="{{_id}}">Delete
+                            Article</button>
                     </h3>
                 </div>
+                <br>
                 <div class="card-text">
                     <p class="text-white">{{summary}}</p>
                 </div>
+                {{#if comments}}
+                {{#each comments}}
+                <div class="card-footer">
+                    <h5 class="text-white">{{body}}</h5>
+                    <button class="btn btn-dark deleteNote float-right" data-note-id="{{_id}}">Delete Note</button>
+                    <br>
+                </div>
+                {{/each}}
+                {{else}}
+                <div class="card-footer">
+                    <h5 class="text-white">No notes for this article yet.</h5>
+                </div>
+                {{/if}}
             </div>
         </div>
         <div class="modal" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel">
