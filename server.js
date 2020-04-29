@@ -21,7 +21,8 @@ app.set("view engine", "handlebars");
 app.use(express.static(__dirname + "/public"));
 
 let MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost/onionScraper";
+  process.env.MONGODB_URI; 
+  // || "mongodb://localhost/onionScraper";
 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
