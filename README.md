@@ -49,15 +49,15 @@ I was not able to find a way to scrape articles, and only pull down new ones wit
 ## Screenshots
 
 Main Page: 
-![Main Page](/public/images/mainPage.jpg)
+![Main Page](/public/assets/images/mainPage.jpg)
 
 Saved Articles:
-![Saved Articles](/public/images/savedArticles.jpg)
+![Saved Articles](/public/assets/images/savedArticles.jpg)
 
 Comments on Saved Articles:
-![Comments](/public/images/savedArticleComment.jpg)
+![Comments](/public/assets/images/savedArticleComment.jpg)
 
 Back To Top Button:
-![Back To Top](/public/images/backToTop.jpg)
+![Back To Top](/public/assets/images/backToTop.jpg)
 
 ### Link to the Live project: https://pacific-shelf-26881.herokuapp.com/
