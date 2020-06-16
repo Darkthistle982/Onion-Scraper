@@ -6,6 +6,7 @@ A web app to scrape and view "news" stories
 * Application use
 * Tech Used
 * Details of Application and Challenges
+* Screenshots
 * Link to Live Project
 
 ## Application Use
@@ -44,5 +45,19 @@ The modal function in particular was a challenge, as it was very particular on w
 I also struggled greatly with my rendering, as my data continuously returned invalid values. This ended up being a mongoose issue, as the returned data, was not standard json objects. I remedied this with the .lean method, which returned the data to a json format, and thusly allowed me to access the data as I needed it. 
 
 I was not able to find a way to scrape articles, and only pull down new ones without duplicates, so I ended up including a deletemany first, to wipe the articles from the db, then scrape. This isn't ideal but it was the only way I could get the scrape working without a massive amount of duplicate articles appearing. 
+
+## Screenshots
+
+Main Page: 
+![Main Page](/public/images/mainPage.jpg)
+
+Saved Articles:
+![Saved Articles](/public/images/savedArticles.jpg)
+
+Comments on Saved Articles:
+![Comments](/public/images/savedArticleComment.jpg)
+
+Back To Top Button:
+![Back To Top](/public/images/backToTop.jpg)
 
 ### Link to the Live project: https://pacific-shelf-26881.herokuapp.com/
