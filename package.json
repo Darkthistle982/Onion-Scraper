@@ -19,7 +19,7 @@
   "homepage": "https://github.com/Darkthistle982/Onion-Scraper#readme",
   "dependencies": {
     "axios": "^0.21.2",
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.3",
     "express-handlebars": "^5.3.1",
